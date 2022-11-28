@@ -7,7 +7,7 @@ This is a very simple lightweight tool that allows you to mock responses from a 
 - Java 11+
 - Apache Maven 3.6.2+
 
-### Build the artefact
+### Run the application
 - Clone this repository
 - In command line browse to this repository container folder and execute
 
@@ -64,3 +64,11 @@ By default, application runs in port 8080. This however, can be modified in orde
 user@machine:~$ java -jar target/mock-my-api.jar source=path/to/json/source/file port=9090
 ```
 
+## Retrieve responses
+Once the application is up and running, you can make a call to 
+
+```console
+user@machine:~$ curl --request GET --url http://localhost:8080/employee/5666556
+```
+
+And then retrieve the response specified by JSON Source file
