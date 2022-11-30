@@ -71,4 +71,4 @@ Once the application is up and running, you can make a call to
 user@machine:~$ curl --request GET --url http://localhost:8080/employee/5666556
 ```
 
-And then retrieve the response specified by JSON Source file
+And then retrieve the response specified by JSON Source file.
