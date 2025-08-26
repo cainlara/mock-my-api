@@ -8,7 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.cainlara.mma.domain.MMARest;
 
-public class JSONUtils {
+public final class JSONUtils {
+
   private static final ObjectMapper DEFAULT_OBJECT_MAPPER = new ObjectMapper();
 
   private JSONUtils() {

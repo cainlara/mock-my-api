@@ -16,11 +16,11 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class MMARest {
+
   private String method;
   private String url;
   private int responseStatusCode;
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
   private Map<String, Object> response;
-  
 }

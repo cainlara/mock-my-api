@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class MMAGenericController {
+
   private Map<String, Map<String, MMARest>> restsMap = null;
   private IMMACustomExecutor customExecutor = null;
 

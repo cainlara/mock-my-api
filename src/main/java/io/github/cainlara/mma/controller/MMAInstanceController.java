@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.cainlara.mma.MMAApplication;
 import io.github.cainlara.mma.domain.MMARest;
+import io.github.cainlara.mma.domain.MMAVersionDescription;
+import io.github.cainlara.mma.service.IMMAConfigSrv;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -18,7 +20,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MMAInstanceController {
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  private final IMMAConfigSrv configService;
+
+  public MMAInstanceController(final IMMAConfigSrv configSrv) {
+    this.configService = configSrv;
+  }
+
+  @GetMapping(path = "/source", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<MMARest>> getAllRest() {
     log.info("Retreaving all RESTs");
     ResponseEntity<List<MMARest>> response = null;
@@ -37,6 +45,31 @@ public class MMAInstanceController {
     }
 
     log.info("All RESTs retrieved");
+
+    return response;
+  }
+
+  @GetMapping(path = "/version", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<MMAVersionDescription> getVersionDetails() {
+    log.info("Retreaving version details");
+    ResponseEntity<MMAVersionDescription> response = null;
+    MMAVersionDescription version = null;
+
+    try {
+      version = configService.getVersionDescription();
+
+      if (version == null) {
+        response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+      } else {
+        response = ResponseEntity.status(HttpStatus.OK).body(version);
+      }
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+      version = MMAVersionDescription.emptyVersionDescription();
+      response = ResponseEntity.status(HttpStatus.OK).body(version);
+    }
+
+    log.info("Version details {} retrieved", version);
 
     return response;
   }

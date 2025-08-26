@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class MMAInputTransformer {
 
   private static final String VALID_URL_REGEX = "^\\/[a-zA-Z0-9\\/]+$";
+
   @NonNull
   private String sourcePath;
 
