@@ -3,9 +3,6 @@ package io.github.cainlara.mma.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.cainlara.mma.MMAAplication;
-import io.github.cainlara.mma.controller.impl.MMACustomExecutorImpl;
-import io.github.cainlara.mma.core.domain.MMARest;
+import io.github.cainlara.mma.MMAApplication;
+import io.github.cainlara.mma.domain.MMARest;
+import io.github.cainlara.mma.executor.IMMACustomExecutor;
+import io.github.cainlara.mma.executor.impl.MMACustomExecutorImpl;
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -28,8 +28,8 @@ public class MMAGenericController {
 
   @PostConstruct
   private void loadProvidedEndpoints() {
-    if (ObjectUtils.isNotEmpty(MMAAplication.getRests())) {
-      MMAAplication.getRests().forEach(rest -> {
+    if (ObjectUtils.isNotEmpty(MMAApplication.getRests())) {
+      MMAApplication.getRests().forEach(rest -> {
 
         if (getRestsMap().containsKey(rest.getMethod())) {
           getRestsMap().get(rest.getMethod()).put(rest.getUrl(), rest);
@@ -103,4 +103,5 @@ public class MMAGenericController {
 
     return restsMap;
   }
+  
 }

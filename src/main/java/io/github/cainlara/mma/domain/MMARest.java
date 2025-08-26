@@ -1,4 +1,4 @@
-package io.github.cainlara.mma.core.domain;
+package io.github.cainlara.mma.domain;
 
 import java.util.Map;
 
@@ -22,4 +22,5 @@ public class MMARest {
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
   private Map<String, Object> response;
+  
 }

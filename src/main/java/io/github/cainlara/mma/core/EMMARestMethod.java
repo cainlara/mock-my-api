@@ -1,6 +1,7 @@
 package io.github.cainlara.mma.core;
 
 public enum EMMARestMethod {
+
   UNKNOWN {
     @Override
     public String getAlias() {
