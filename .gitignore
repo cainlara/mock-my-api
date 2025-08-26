@@ -142,4 +142,8 @@ $RECYCLE.BIN/
 # Personal secrets
 secrets.properties
 
+### VS Code ###
+.vscode/**
+*.code-workspace
+
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse,maven,windows
