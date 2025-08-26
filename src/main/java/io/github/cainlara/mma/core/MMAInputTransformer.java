@@ -10,13 +10,14 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ObjectUtils;
 
-import io.github.cainlara.mma.core.domain.MMARest;
+import io.github.cainlara.mma.domain.MMARest;
 import io.github.cainlara.mma.util.JSONUtils;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor(staticName = "of")
 public class MMAInputTransformer {
+
   private static final String VALID_URL_REGEX = "^\\/[a-zA-Z0-9\\/]+$";
   @NonNull
   private String sourcePath;
@@ -30,7 +31,7 @@ public class MMAInputTransformer {
     }
 
     try {
-      rests = JSONUtils.getInstance().getEndPointsFromString(getFileContent());
+      rests = JSONUtils.getEndPointsFromString(getFileContent());
     } catch (Exception e) {
       throw new MMAException("Source file content could not be mapped", e.getCause());
     }
@@ -46,14 +47,12 @@ public class MMAInputTransformer {
     }
 
     return rests;
-
   }
 
   private String getFileContent() throws IOException {
     return Files.readString(Path.of(this.sourcePath));
   }
 
-  @SuppressWarnings("static-method")
   private String validateRestFromSourceFile(final List<MMARest> rests) {
     final StringBuilder errorsBuilder = new StringBuilder();
     final Map<Integer, MMARest> existingRests = new HashMap<>();

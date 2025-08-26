@@ -10,21 +10,22 @@ import io.github.cainlara.arguments.manager.core.AMUtility;
 import io.github.cainlara.arguments.manager.domain.AMArgument;
 import io.github.cainlara.mma.core.MMAException;
 import io.github.cainlara.mma.core.MMAInputTransformer;
-import io.github.cainlara.mma.core.domain.MMARest;
+import io.github.cainlara.mma.domain.MMARest;
 
 @SpringBootApplication
-public class MMAAplication {
+public class MMAApplication {
+
   private static List<MMARest> rests = null;
   private static Integer port = null;
 
-  public static void main(final String... args) throws MMAException {
+  public static void main(String[] args) throws MMAException {
     AMArgument sourceArgument = AMUtility.getInstance().getArgumentByName("source", args);
     AMArgument portArgument = AMUtility.getInstance().getArgumentByName("port", args);
 
     if (sourceArgument == null) {
-      throw new MMAException("No data source path provided");
+      throw new MMAException("No data valid source path provided");
     }
-    
+
     if (ObjectUtils.isNotEmpty(portArgument)) {
       if (isPortValueValid(portArgument.getArgumentValue())) {
         port = Integer.valueOf(portArgument.getArgumentValue());
@@ -37,11 +38,11 @@ public class MMAAplication {
 
     rests = MMAInputTransformer.of(sourceArgument.getArgumentValue()).parse();
 
-    SpringApplication.run(MMAAplication.class, args);
+    SpringApplication.run(MMAApplication.class, args);
   }
 
-  public static void setRests(final List<MMARest> rests) {
-    MMAAplication.rests = rests;
+  private static boolean isPortValueValid(final String portValue) {
+    return ObjectUtils.isNotEmpty(portValue) && portValue.matches("^[0-9]+");
   }
 
   public static List<MMARest> getRests() {
@@ -51,8 +52,5 @@ public class MMAAplication {
   public static Integer getPort() {
     return port;
   }
-
-  private static boolean isPortValueValid(final String portValue) {
-    return ObjectUtils.isNotEmpty(portValue) && portValue.matches("^[0-9]+");
-  }
+  
 }

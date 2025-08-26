@@ -1,79 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>io.github.cainlara</groupId>
-  <artifactId>mock-my-api</artifactId>
-  <version>0.0.1</version>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.github.cainlara</groupId>
+	<artifactId>mock-my-api</artifactId>
+	<version>0.1.0</version>
 
-  <properties>
-    <maven.compiler.target>11</maven.compiler.target>
-    <maven.compiler.source>11</maven.compiler.source>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <apache.commons.lang.version>3.12.0</apache.commons.lang.version>
-    <lombok.version>1.18.22</lombok.version>
-    <spring.boot.version>2.7.3</spring.boot.version>
-    <spring-boot-maven-plugin.version>2.7.4</spring-boot-maven-plugin.version>
-    <git-commit-id-maven-plugin.version>5.0.0</git-commit-id-maven-plugin.version>
-    <arguments-manager-java.version>0.1.1</arguments-manager-java.version>
-    <jackson.version>2.14.0</jackson.version>
-  </properties>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>4.0.0-M1</version>
+		<relativePath/>
+	</parent>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>${apache.commons.lang.version}</version>
-    </dependency>
+	<properties>
+		<java.version>21</java.version>
+		<lombok.version>1.18.38</lombok.version>
+		<mvnc.version>3.14.0</mvnc.version>
+		<amj.version>0.1.1</amj.version>
+		<gcim.version>9.0.2</gcim.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
 
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>${lombok.version}</version>
-      <scope>provided</scope>
-    </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>io.github.cainlara</groupId>
+			<artifactId>arguments-manager-java</artifactId>
+			<version>${amj.version}</version>
+		</dependency>
 
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-autoconfigure</artifactId>
-      <version>${spring.boot.version}</version>
-    </dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.18.0</version>
+		</dependency>
 
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-      <version>${spring.boot.version}</version>
-    </dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+		</dependency>
 
-    <dependency>
-      <groupId>io.github.cainlara</groupId>
-      <artifactId>arguments-manager-java</artifactId>
-      <version>${arguments-manager-java.version}</version>
-    </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-core</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+	</dependencies>
 
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
-  </dependencies>
-
-  <build>
-    <finalName>mock-my-api</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring-boot-maven-plugin.version}</version>
-        <configuration>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
           <executable>true</executable>
-          <mainClass>io.github.cainlara.mma.MMAAplication</mainClass>
+          <mainClass>io.github.cainlara.mma.MMAApplication</mainClass>
         </configuration>
         <executions>
           <execution>
@@ -82,9 +69,9 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
+			</plugin>
 
-      <plugin>
+			<plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <configuration>
@@ -96,10 +83,27 @@
         </configuration>
       </plugin>
 
-      <plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${mvnc.version}</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
+			<plugin>
         <groupId>io.github.git-commit-id</groupId>
         <artifactId>git-commit-id-maven-plugin</artifactId>
-        <version>${git-commit-id-maven-plugin.version}</version>
+        <version>${gcim.version}</version>
         <executions>
           <execution>
             <id>get-the-git-infos</id>
@@ -122,6 +126,6 @@
           </gitDescribe>
         </configuration>
       </plugin>
-    </plugins>
-  </build>
+		</plugins>
+	</build>
 </project>
